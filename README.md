@@ -1,1 +1,1 @@
-Program Biblioteka
+Program Biblioteka za seminarski rad iz skript jezika
