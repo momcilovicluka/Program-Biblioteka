@@ -11,6 +11,12 @@ def login(username, password):
             return True
     return False
 
+def clanPostoji(korIme):
+    for c in clanovi:
+        if c['korIme'] == korIme:
+            return True
+    return False
+
 def loadClanovi():
     for line in open('clanovi.txt', 'r').readlines():
         if len(line) > 1:

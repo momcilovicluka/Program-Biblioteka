@@ -39,12 +39,14 @@ def main():
             elif komanda == '6':
                 pass
             elif komanda == '7':
-                pass
+                Knjige.main()
             elif komanda == '8':
                 pass
             elif komanda == '9':
                 izdavanje()
             elif komanda == '10':
+                pass
+            elif komanda == '11':
                 pass
                 
     else:
@@ -64,7 +66,7 @@ def main():
 def menu():
     printMenu()
     command = input(">> ")
-    while command.upper() not in ('1', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'X'):
+    while command.upper() not in ('1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', 'X'):
         print("\nUneli ste pogresnu komandu.\n")
         printMenu()
         command = input(">> ")
@@ -93,6 +95,7 @@ def printMenu():
     print(" 8  - dodavanje clana")
     print(" 9  - izdavanje knjige")
     print(" 10 - vracanje knjige")
+    print(" 11 - grafikoni")
     print(" x  - izlaz iz programa\n")
     
 def printMenuClan():
@@ -136,31 +139,38 @@ def pronalazenjeKnjige():
 def izdavanje():
     print("[Izdavanje knjige] \n")
     izdavanje = ""
-    if not JE_BIBLIOTEKAR:
-        izdavanje += USERNAME + "|"
-        naslov = input("Unesite naslov knjige >> ")
-        knjiga = Knjige.pronadjiKnjigu(naslov)
-        if(knjiga == 0):
-            print("Knjiga nije pronadjena")
+    if JE_BIBLIOTEKAR:
+        global USERNAME
+        USERNAME = input("Unesite korisnicko ime clana: ")
+        if not Clanovi.clanPostoji(USERNAME):
+            print("Clan ne postoji")
             return
+    izdavanje += USERNAME + "|"
+    naslov = input("Unesite naslov knjige >> ")
+    knjiga = Knjige.pronadjiKnjigu(naslov)
+    if(knjiga == 0):
+        print("Knjiga nije pronadjena")
+        return
+    else:
+        print("{0:<5}{1:40}{2:20}{3:20}{4:8}{5:4}".format('id', 'naslov', 'autor', 'izdavac', 'godina', 'broj knjiga'))
+        Knjige.stampajKnjigu(knjiga)
+        if int(knjiga['brKnjiga']) >=1:
+            if input("Potvrdite iznajmljivanje knjige (da/ne) >>") == "ne":
+                print("Knjiga nije iznajmljenja")
+                return 0
+            izdavanje += knjiga['redniBroj'] + "|"
+            datum = dt.date.today()
+            izdavanje += str(datum) + "|"
+            datum += dt.timedelta(days = 30)
+            izdavanje += str(datum)
+            fajl = open("izdate.txt", 'a')
+            fajl.write(izdavanje + '\n')
+            fajl.close()
+            Knjige.izmeniBrojKnjiga(knjiga['redniBroj'], -1)
+            Knjige.save2file()
+            
         else:
-            print("{0:<5}{1:40}{2:20}{3:20}{4:8}{5:4}".format('id', 'naslov', 'autor', 'izdavac', 'godina', 'broj knjiga'))
-            Knjige.stampajKnjigu(knjiga)
-            if int(knjiga['brKnjiga']) >=1:
-                izdavanje += knjiga['redniBroj'] + "|"
-                datum = dt.date.today()
-                izdavanje += str(datum) + "|"
-                datum += dt.timedelta(days = 30)
-                izdavanje += str(datum)
-                fajl = open("izdate.txt", 'a')
-                fajl.write(izdavanje + '\n')
-                fajl.close()
-                Knjige.izmeniBrojKnjiga(knjiga['redniBroj'], -1)
-                Knjige.save2file()
-                
-            else:
-                return
-                
+            print("Trenutno nema slobodnih primeraka te knjige u biblioteci")
 
 def funkcija():
     printMenu()
