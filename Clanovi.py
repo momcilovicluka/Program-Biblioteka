@@ -17,6 +17,39 @@ def clanPostoji(korIme):
             return True
     return False
 
+def izmeniClana(korIme):
+    for x in clanovi:
+        if korIme == x['korIme']:
+            ime = input("Novo ime (Enter da ostane isto)>> ")
+            if not ime == "":
+                x['ime'] = ime
+            prezime = input("Novo prezime (Enter da ostane isto)>> ")
+            if not prezime == "":
+                x['prezime'] = prezime
+            korIme = input("Novi korIme (Enter da ostane isto)>> ")
+            if not korIme == "":
+                x['korIme'] = korIme
+            lozinka = input("Nova lozinka izdanja (Enter da ostane isto)>> ")
+            if not lozinka == "":
+                x['lozinka'] = lozinka
+            break
+    return 0
+
+def clanPostojiImePrezime(ime, prezime):
+    for c in clanovi:
+        if c['ime'] == ime and c['prezime'] == prezime:
+            return True
+    return False
+
+def pronadjiClana(ime, prezime):
+    for c in clanovi:
+        if c['ime'] == ime and c['prezime'] == prezime:
+            return c
+
+def dodajClana(clanovi, clan):
+    clanovi.append(clan)
+    return clanovi
+
 def loadClanovi():
     for line in open('clanovi.txt', 'r').readlines():
         if len(line) > 1:
@@ -35,6 +68,11 @@ def str2clan(line):
 
 def clan2str(clan):
     return '|'.join([clan['ime'], clan['prezime'], clan['korIme'], clan['lozinka']])
+
+def save2file():
+    fajl = open("clanovi.txt", 'w')
+    for c in clanovi:
+        fajl.write(str(c['ime']) + '|' + c['prezime'] + '|' + c['korIme'] + '|' + c['lozinka']+ '\n')
 
 def formatHeader():
         print("Ime            |Prezime             |Korisnicko ime      |Lozinka        ")

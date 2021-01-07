@@ -1,4 +1,5 @@
 Marko|Markovic|mmarkovic|sifra1234
 Petar|Petrovic|ppetrovic|sifra567
-Milan|Stankovic|mstankovic|sifra22
+Milan|Milanic|mmilanic|sifra22
 Aleksa|Peric|aperic|sifra000
+Nikola|Markovic|nikolajekul|glupasifra

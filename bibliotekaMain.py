@@ -24,6 +24,7 @@ def main():
     
     komanda = '0'
     if(JE_BIBLIOTEKAR):
+        print("Ulogovani ste kao bibliotekar")
         while komanda != 'X':
             komanda = menu()
             if komanda == '1':
@@ -33,24 +34,25 @@ def main():
             elif komanda == '3':
                 pronalazenjeKnjige()
             elif komanda == '4':
-                pass
+                pronalazenjeClana()
             elif komanda == '5':
-                pass
+                izmenaKnjige()
             elif komanda == '6':
-                pass
+                izmenaClana()
             elif komanda == '7':
                 Knjige.main()
             elif komanda == '8':
-                pass
+                dodavanjeClana()
             elif komanda == '9':
                 izdavanje()
             elif komanda == '10':
-                pass
+                vracanje()
             elif komanda == '11':
                 pass
                 
     else:
         while komanda != 'X':
+            print("Ulogovani ste kao clan biblioteke")
             komanda = menuClan()
             if komanda == '1':
                 stampajKnjige()
@@ -59,7 +61,7 @@ def main():
             elif komanda == '3':
                 izdavanje()
             elif komanda == '4':
-                pass
+                vracanje()
     
     print("Dovidjenja.")
 
@@ -135,7 +137,38 @@ def pronalazenjeKnjige():
     else:
         print("{0:<5}{1:40}{2:20}{3:20}{4:8}{5:4}".format('id', 'naslov', 'autor', 'izdavac', 'godina', 'broj knjiga'))
         Knjige.stampajKnjigu(knjiga)
+
+def pronalazenjeClana():
+    print("[Pronalazenje clana] \n")
+    ImeIPrezime = input("Unesite ime i prezime clana >> ")
+    ime, prezime = ImeIPrezime.split(" ")
+    if not Clanovi.clanPostojiImePrezime(ime, prezime):
+        print("Clan ne postoji")
+        return
+    c = Clanovi.pronadjiClana(ime, prezime)
+    Clanovi.formatHeader()
+    Clanovi.stampajClana(c)
     
+def izmenaKnjige():
+    stampajKnjige()
+    redniBroj = input("Unesite redni broj knjige koju zelite da izmenite >>")
+    if not Knjige.knjigaPostoji(redniBroj):
+        print("Ne postoji knjiga sa tim rednim brojem")
+        return
+    print("{0:<5}{1:40}{2:20}{3:20}{4:8}{5:4}".format('id', 'naslov', 'autor', 'izdavac', 'godina', 'broj knjiga'))
+    Knjige.stampajKnjigu(Knjige.pronadjiKnjiguRedniBroj(redniBroj))
+    Knjige.izmeniKnjigu(redniBroj)
+    Knjige.save2file()
+    
+def izmenaClana():
+    stampajClanove()
+    korIme = input("Unesite korisnicko ime clana kojeg zelite da izmenite >>")
+    if not Clanovi.clanPostoji(korIme):
+        print("Ne postoji clan sa tim korisnickim imenom")
+        return
+    Clanovi.izmeniClana(korIme)
+    Clanovi.save2file()
+
 def izdavanje():
     print("[Izdavanje knjige] \n")
     izdavanje = ""
@@ -171,6 +204,26 @@ def izdavanje():
             
         else:
             print("Trenutno nema slobodnih primeraka te knjige u biblioteci")
+
+def vracanje():
+    pass
+
+def grafikoni():
+    pass
+
+def dodavanjeClana():
+    ime = input("Unesite ime >>")
+    prezime = input("Unesite prezime >>")
+    korIme = input("Unesite korisnicko ime >> ")
+    while Clanovi.clanPostoji(korIme):
+        print("Korisnicko ime vec postoji")
+        korIme = input("Unesite korisnicko ime >> ")
+    lozinka = input("Unesite lozinku >> ")
+    clan = {'ime' : ime, 'prezime' : prezime, 'korIme' : korIme, 'lozinka' : lozinka}
+    Clanovi.formatHeader()
+    Clanovi.stampajClana(clan)
+    Clanovi.clanovi = Clanovi.dodajClana(Clanovi.clanovi, clan)
+    Clanovi.save2file()
 
 def funkcija():
     printMenu()
