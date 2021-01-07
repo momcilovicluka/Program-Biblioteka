@@ -1,4 +1,4 @@
-mmarkovic|sifra1234|Marko|Markovic
-ppetrovic|sifra567|Petar|Petrovic
-mstankovic|sifra22|Milan|Stankovic
-aperic|sifra000|Aleksa|Peric
+Marko|Markovic|mmarkovic|sifra1234
+Petar|Petrovic|ppetrovic|sifra567
+Milan|Stankovic|mstankovic|sifra22
+Aleksa|Peric|aperic|sifra000
