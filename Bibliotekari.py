@@ -17,6 +17,12 @@ def loadBibl():
             bib = str2bib(line)
             bibliotekari.append(bib)
             
+def bibliotekarPostoji(korIme):
+    for b in bibliotekari:
+        if b['korIme'] == korIme:
+            return True
+    return False
+            
 def str2bib(line):
     if line[-1] =='\n':
         line = line[:-1]

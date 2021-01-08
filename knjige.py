@@ -43,12 +43,17 @@ def dodajKnjigu(knjige, knjiga):
     knjige.append(knjiga)
     return knjige
 
+def formatHeader():
+        print("id   |naslov                                  |autor               |izdavac             |godina  |brKnjiga")
+        print("-----+----------------------------------------+--------------------+--------------------+--------+--------")
+
 def stampajKnjigu(k):
-    print("{0:<5}{1:40}{2:20}{3:20}{4:8}{5:4}".format(k['redniBroj'], k['naslov'], k['autor'], k['izdavac'], k['godina'], k['brKnjiga']))
+    print("{0:<5}|{1:40}|{2:20}|{3:20}|{4:8}|{5:4}".format(k['redniBroj'], k['naslov'], k['autor'], k['izdavac'], k['godina'], k['brKnjiga']))
     
 def stampajKnjige(knjige):
-    print("{0:<5}{1:40}{2:20}{3:20}{4:8}{5:4}".format('id', 'naslov', 'autor', 'izdavac', 'godina', 'brKnjiga'))
-    print("-"*10)
+    #print("{0:<5}{1:40}{2:20}{3:20}{4:8}{5:4}".format('id', 'naslov', 'autor', 'izdavac', 'godina', 'brKnjiga'))
+    #print("-"*101)
+    formatHeader()
     for x in knjige:
         stampajKnjigu(x)
         
@@ -132,8 +137,9 @@ def main():
         redniBroj += 1
         dodajKnjigu(knjige1, knjiga)
         string = input("Da li ima jos knjiga? ")
-    print("{0:<5}{1:40}{2:20}{3:20}{4:8}{5:4}".format('id', 'naslov', 'autor', 'izdavac', 'godina', 'brKnjiga'))
-    print("-"*90)
+    #print("{0:<5}{1:40}{2:20}{3:20}{4:8}{5:4}".format('id', 'naslov', 'autor', 'izdavac', 'godina', 'brKnjiga'))
+    #print("-"*90)
+    formatHeader()
     for x in knjige1:
         stampajKnjigu(x)
         dodajKnjigu(knjige, x)

@@ -135,7 +135,8 @@ def pronalazenjeKnjige():
     if(knjiga == 0):
         print("Knjiga nije pronadjena")
     else:
-        print("{0:<5}{1:40}{2:20}{3:20}{4:8}{5:4}".format('id', 'naslov', 'autor', 'izdavac', 'godina', 'broj knjiga'))
+        Knjige.formatHeader()
+        #print("{0:<5}{1:40}{2:20}{3:20}{4:8}{5:4}".format('id', 'naslov', 'autor', 'izdavac', 'godina', 'broj knjiga'))
         Knjige.stampajKnjigu(knjiga)
 
 def pronalazenjeClana():
@@ -155,7 +156,8 @@ def izmenaKnjige():
     if not Knjige.knjigaPostoji(redniBroj):
         print("Ne postoji knjiga sa tim rednim brojem")
         return
-    print("{0:<5}{1:40}{2:20}{3:20}{4:8}{5:4}".format('id', 'naslov', 'autor', 'izdavac', 'godina', 'broj knjiga'))
+    #print("{0:<5}{1:40}{2:20}{3:20}{4:8}{5:4}".format('id', 'naslov', 'autor', 'izdavac', 'godina', 'broj knjiga'))
+    Knjige.formatHeader()
     Knjige.stampajKnjigu(Knjige.pronadjiKnjiguRedniBroj(redniBroj))
     Knjige.izmeniKnjigu(redniBroj)
     Knjige.save2file()
@@ -206,7 +208,14 @@ def izdavanje():
             print("Trenutno nema slobodnih primeraka te knjige u biblioteci")
 
 def vracanje():
-    pass
+    print("[Vracanje knjige] \n")
+    if JE_BIBLIOTEKAR:
+        global USERNAME
+        USERNAME = input("Unesite korisnicko ime clana: ")
+        if not Clanovi.clanPostoji(USERNAME):
+            print("Clan ne postoji")
+            return
+    fajl = open("izdate.txt", 'r')
 
 def grafikoni():
     pass
@@ -215,7 +224,7 @@ def dodavanjeClana():
     ime = input("Unesite ime >>")
     prezime = input("Unesite prezime >>")
     korIme = input("Unesite korisnicko ime >> ")
-    while Clanovi.clanPostoji(korIme):
+    while Clanovi.clanPostoji(korIme) or Bibliotekari.bibliotekarPostoji(korIme):
         print("Korisnicko ime vec postoji")
         korIme = input("Unesite korisnicko ime >> ")
     lozinka = input("Unesite lozinku >> ")

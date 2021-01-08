@@ -25,6 +25,11 @@ def dodajIzdat(izdate, izdat):
     izdate.append(izdat)
     return izdate
 
+def save2file():
+    fajl = open("izdate.txt", 'w')
+    for i in izdate:
+        fajl.write(i['korIme'] + '|' + (i['redniBroj'] + '|' + i['datumIzdanja'] + '|' + k['datumVracanja'] + '\n')
+
 def stampajKnjigu(k):
     print("{0:<5}{1:40}{2:20}{3:20}{4:8}{5:4}".format(k['redniBroj'], k['naslov'], k['autor'], k['izdavac'], k['godina'], k['brKnjiga']))
     
