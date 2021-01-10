@@ -4,7 +4,8 @@ Created on Thu Jan  7 00:40:26 2021
 
 @author: Luka
 """
-from operator import itemgetter 
+
+import datetime as dt
 
 def loadIzdate():
     for line in open('izdate.txt', 'r').readlines():
@@ -87,6 +88,16 @@ def pronadjiIzdat(korIme):
             return i
     return 0
 
+def pronadjiIzdatNaslov(korIme):
+    for i in izdate:
+        if korIme == i['korIme']:
+            danasnji = dt.datetime.today()
+            danasnji.strftime("%d.%m.%Y.")
+            datumIzdavanja = dt.datetime.strptime(i['datumIzdavanja'], "%d.%m.%Y.")
+            razlika = (danasnji - datumIzdavanja).days
+            if razlika > 30:
+                print("Kasnite sa vracanjem knjige: " + i['naslov'] + ', autora: ' + i['autor'])
+                
 def pronadjiNajizdavanija(naslov, autor):
     for n in najizdavanije:
         if naslov == n['naslov'] and autor == n['autor']:

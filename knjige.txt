@@ -4,7 +4,7 @@
 1|Gospodar prstenova - Dve kule|Dz.R.R.Tolkin|PUBLIK PRAKTIKUM|2018|1
 2|Gospodar prstenova - Povratak kralja|Dz.R.R.Tolkin|PUBLIK PRAKTIKUM|2018|2
 4|Hari Poter i dvorana tajni|Dz. K. Rouling|Evro Book|2019|4
-3|Hari Poter i kamen mudrosti|Dz. K. Rouling|Evro Book|2019|2
+3|Hari Poter i kamen mudrosti|Dz. K. Rouling|Evro Book|2019|1
 8|Hari Poter i polukrvni princ|Dz. K. Rouling|Evro Book|2019|6
 7|Hari Poter i red feniksa|Dz. K. Rouling|Evro Book|2019|2
 9|Hari Poter i relikvije smrti 1|Dz. K. Rouling|Evro Book|2019|1

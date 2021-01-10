@@ -55,8 +55,9 @@ def main():
                 grafikoni()
                 
     else:
+        Izdavanje.pronadjiIzdatNaslov(USERNAME)
+        print("Ulogovani ste kao clan biblioteke")
         while komanda != 'X':
-            print("Ulogovani ste kao clan biblioteke")
             komanda = menuClan()
             if komanda == '1':
                 stampajKnjige()
