@@ -1,5 +1,4 @@
-Marko|Markovic|mmarkovic|password
-Petar|Petrovic|ppetrovic|sifra567
-Milan|Milanic|mmilanic|sifra22
 Aleksa|Peric|aperic|sifra000
+Marko|Markovic|mmarkovic|password
 Nikola|Markovic|nikolajekul|glupasifra
+Petar|Petrovic|ppetrovic|sifra567

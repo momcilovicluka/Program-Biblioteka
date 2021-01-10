@@ -1,21 +1,20 @@
-20|321|dwasd|efwf|3421|8
-11|Ari Pota|luka|surdulica books|2021|3
 0|Gospodar prstenova - Druzina prstena|Dz.R.R.Tolkin|PUBLIK PRAKTIKUM|2018|2
 1|Gospodar prstenova - Dve kule|Dz.R.R.Tolkin|PUBLIK PRAKTIKUM|2018|1
 2|Gospodar prstenova - Povratak kralja|Dz.R.R.Tolkin|PUBLIK PRAKTIKUM|2018|2
-4|Hari Poter i dvorana tajni|Dz. K. Rouling|Evro Book|2019|4
 3|Hari Poter i kamen mudrosti|Dz. K. Rouling|Evro Book|2019|1
-8|Hari Poter i polukrvni princ|Dz. K. Rouling|Evro Book|2019|6
+4|Hari Poter i dvorana tajni|Dz. K. Rouling|Evro Book|2019|4
+5|Hari Poter i zatvorenik iz askabana|Dz. K. Rouling|Evro Book|2019|3
+6|Hari Poter i vatreni pehar|Dz. K. Rouling|Evro Book|2019|0
 7|Hari Poter i red feniksa|Dz. K. Rouling|Evro Book|2019|2
+8|Hari Poter i polukrvni princ|Dz. K. Rouling|Evro Book|2019|6
 9|Hari Poter i relikvije smrti 1|Dz. K. Rouling|Evro Book|2019|1
 10|Hari Poter i relikvije smrti 2|Dz. K. Rouling|Evro Book|2019|2
-6|Hari Poter i vatreni pehar|Dz. K. Rouling|Evro Book|2019|0
-5|Hari Poter i zatvorenik iz askabana|Dz. K. Rouling|Evro Book|2019|3
-13|aaa|bbb|ccc|ddd|4
-12|afasdf|vrafasrf|sgrdrg|grs|85
-18|asd|fgh|sad|2503|2
-14|glupa knjiga|ap|789|56|12
-15|ko si ti|momcilo|a bookz|2023|69
-16|qwert|qwert|yuiop|2025|4
-19|sd|fds|csa|23|40
-17|super kul knjiga|janko|pmf|2023|1
+11|Ari Pota|luka|surdulica books|2021|3
+12|glupa knjiga|ap|789|56|12
+13|ko si ti|momcilo|a bookz|2023|69
+14|qwert|qwert|yuiop|2025|4
+15|super kul knjiga|janko|pmf|2023|1
+16|asd|fgh|sad|2503|2
+17|sd|fds|csa|23|40
+18|321|dwasd|efwf|3421|8
+19|321|dwss|efwf|3421|8

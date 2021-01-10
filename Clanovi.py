@@ -42,9 +42,11 @@ def clanPostojiImePrezime(ime, prezime):
     return False
 
 def pronadjiClana(ime, prezime):
+    rez = []
     for c in clanovi:
         if c['ime'] == ime and c['prezime'] == prezime:
-            return c
+            rez.append(c)
+    return rez
 
 def dodajClana(clanovi, clan):
     clanovi.append(clan)

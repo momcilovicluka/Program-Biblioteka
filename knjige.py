@@ -58,10 +58,11 @@ def stampajKnjige(knjige):
         stampajKnjigu(x)
         
 def pronadjiKnjigu(naslov):
+    rez = []
     for x in knjige:
-        if naslov == x['naslov']:
-            return x 
-    return 0
+        if naslov == x['naslov'].lower():
+            rez.append(x) 
+    return rez
 
 def pronadjiKnjiguRedniBroj(redniBroj):
     for x in knjige:

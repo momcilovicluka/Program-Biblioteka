@@ -52,7 +52,7 @@ def main():
             elif komanda == '11':
                 izdateKnjige()
             elif komanda == '12':
-                grafikoni()
+                grafikon()
                 
     else:
         Izdavanje.pronadjiIzdatNaslov(USERNAME)
@@ -103,7 +103,7 @@ def printMenu():
     print(" 9  - izdavanje knjige")
     print(" 10 - vracanje knjige")
     print(" 11 - izdate knjige")
-    print(" 12 - grafikoni")
+    print(" 12 - grafikon")
     print(" x  - izlaz iz programa\n")
     
 def printMenuClan():
@@ -128,37 +128,75 @@ def login():
     return 0
 
 def stampajKnjige():
-    Knjige.sortirajKnjige('naslov')
+    print("[Stampanje knjiga] \n")
+    print("Da li zelite da knjige budu sortirane?")
+    print(" 1 - naslov")
+    print(" 2 - autor")
+    print(" 3 - izdavac")
+    print(" 4 - godinaIzdanja")
+    print(" 5 - default\n\n>>")
+    command = input(">> ")
+    while command not in ('1', '2', '3', '4', '5'):
+        print("\nUneli ste pogresnu komandu.\n")
+        command = input(">> ")
+    if command == '1':
+        Knjige.sortirajKnjige('naslov')
+    elif command == '2':
+        Knjige.sortirajKnjige('autor')
+    elif command == '3':
+        Knjige.sortirajKnjige('izdavac')
+    elif command == '4':
+        Knjige.sortirajKnjige('godina')
+        
     Knjige.stampajKnjige(Knjige.knjige)
     
 def stampajClanove():
-    Clanovi.sortirajClanove('prezime')
+    print("[Stampanje clanova] \n")
+    print("Da li zelite da clanovi budu sortirani?")
+    print(" 1 - ime")
+    print(" 2 - prezime")
+    print(" 3 - korisnicko ime")
+    print(" 4 - bez sortiranja\n\n>>")
+    command = input(">> ")
+    while command not in ('1', '2', '3', '4'):
+        print("\nUneli ste pogresnu komandu.\n")
+        command = input(">> ")
+    if command == '1':
+        Clanovi.sortirajClanove('ime')
+    elif command == '2':
+        Clanovi.sortirajClanove('prezime')
+    elif command == '3':
+        Clanovi.sortirajClanove('korIme')
     Clanovi.formatHeader()
     Clanovi.stampajClanove(Clanovi.clanovi)
 
 def pronalazenjeKnjige():
     print("[Pronalazenje knjige] \n")
     naslov = input("Unesite naslov knjige >> ")
-    knjiga = Knjige.pronadjiKnjigu(naslov)
-    if(knjiga == 0):
+    knjige = Knjige.pronadjiKnjigu(naslov.lower())
+    if not knjige:
         print("Knjiga nije pronadjena")
     else:
-        Knjige.formatHeader()
         #print("{0:<5}{1:40}{2:20}{3:20}{4:8}{5:4}".format('id', 'naslov', 'autor', 'izdavac', 'godina', 'broj knjiga'))
-        Knjige.stampajKnjigu(knjiga)
+        Knjige.stampajKnjige(knjige)
 
 def pronalazenjeClana():
     print("[Pronalazenje clana] \n")
     ImeIPrezime = input("Unesite ime i prezime clana >> ")
-    ime, prezime = ImeIPrezime.split(" ")
+    try:
+        ime, prezime = ImeIPrezime.split(" ")
+    except:
+        print("Niste ispravno uneli ime i prezime")
+        return
     if not Clanovi.clanPostojiImePrezime(ime, prezime):
         print("Clan ne postoji")
         return
-    c = Clanovi.pronadjiClana(ime, prezime)
+    clanovi = Clanovi.pronadjiClana(ime, prezime)
     Clanovi.formatHeader()
-    Clanovi.stampajClana(c)
+    Clanovi.stampajClanove(clanovi)
     
 def izmenaKnjige():
+    print("[Izmena knjige] \n")
     stampajKnjige()
     redniBroj = input("Unesite redni broj knjige koju zelite da izmenite >>")
     if not Knjige.knjigaPostoji(redniBroj):
@@ -171,13 +209,25 @@ def izmenaKnjige():
     Knjige.save2file()
     
 def izmenaClana():
+    print("[Izmena clana] \n")
     stampajClanove()
     korIme = input("Unesite korisnicko ime clana kojeg zelite da izmenite >>")
     if not Clanovi.clanPostoji(korIme):
         print("Ne postoji clan sa tim korisnickim imenom")
         return
-    Clanovi.izmeniClana(korIme)
+    
+    odgovor = input("Da li zelite da izbrisete clana (da/ne) >>")
+    if odgovor == "da":
+        for c in range(len(Clanovi.clanovi)):
+            if Clanovi.clanovi[c]['korIme'] == korIme:
+                del Clanovi.clanovi[c]
+                print("Clan je izbrisan")
+                break
+    else:
+        Clanovi.izmeniClana(korIme)
     Clanovi.save2file()
+    Clanovi.clanovi.clear()
+    Clanovi.loadClanovi()
 
 def izdavanje():
     print("[Izdavanje knjige] \n")
@@ -250,7 +300,7 @@ def vracanje():
         print("Korisnik nije iznajmio tu knjigu")
         
         
-def grafikoni():
+def grafikon():
     print("[Najprodavanije knjige] \n")
     x_podaci = []
     y_podaci = []
@@ -269,6 +319,7 @@ def grafikoni():
     
 
 def dodavanjeClana():
+    print("[Dodavanje clana] \n")
     ime = input("Unesite ime >>")
     prezime = input("Unesite prezime >>")
     korIme = input("Unesite korisnicko ime >> ")
@@ -283,33 +334,34 @@ def dodavanjeClana():
     Clanovi.save2file()
 
 def izdateKnjige():
+    print("[Izdate knjige] \n")
     Izdavanje.stampajIzdate(Izdavanje.izdate)
 
-def funkcija():
-    printMenu()
-    fajl = open("clanovi.txt", 'r')
-    clanovi = []
-    for l in fajl:
-        c = {}
-        clan = l[:-1].split('|')
-        c['Ime'] = clan[0]
-        c['Prezime'] = clan[1]
-        c['username'] = clan[2]
-        c['password'] = clan[3]
-        clanovi.append(c)
-    fajl.close()
+# def funkcija():
+#     printMenu()
+#     fajl = open("clanovi.txt", 'r')
+#     clanovi = []
+#     for l in fajl:
+#         c = {}
+#         clan = l[:-1].split('|')
+#         c['Ime'] = clan[0]
+#         c['Prezime'] = clan[1]
+#         c['username'] = clan[2]
+#         c['password'] = clan[3]
+#         clanovi.append(c)
+#     fajl.close()
     
-    fajl = open("bibliotekari.txt", 'r')
-    bibliotekari = []
-    for l in fajl:
-        b = {}
-        bibliotekar = l[:-1].split('|')
-        b['username'] = bibliotekar[0]
-        b['password'] = bibliotekar[1]
-        bibliotekari.append(b)
-    fajl.close()
+#     fajl = open("bibliotekari.txt", 'r')
+#     bibliotekari = []
+#     for l in fajl:
+#         b = {}
+#         bibliotekar = l[:-1].split('|')
+#         b['username'] = bibliotekar[0]
+#         b['password'] = bibliotekar[1]
+#         bibliotekari.append(b)
+#     fajl.close()
     
-    Knjige.main()
+#     Knjige.main()
 
 
 if __name__ == '__main__':
