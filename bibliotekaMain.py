@@ -26,7 +26,7 @@ def main():
     
     komanda = '0'
     if(JE_BIBLIOTEKAR):
-        print("Ulogovani ste kao bibliotekar")
+        print("\n-->Ulogovani ste kao bibliotekar<--\n")
         while komanda != 'X':
             komanda = menu()
             if komanda == '1':
@@ -56,7 +56,7 @@ def main():
                 
     else:
         Izdavanje.pronadjiIzdatNaslov(USERNAME)
-        print("Ulogovani ste kao clan biblioteke")
+        print("\n-->Ulogovani ste kao clan biblioteke<--\n")
         while komanda != 'X':
             komanda = menuClan()
             if komanda == '1':
@@ -134,7 +134,7 @@ def stampajKnjige():
     print(" 2 - autor")
     print(" 3 - izdavac")
     print(" 4 - godinaIzdanja")
-    print(" 5 - default\n\n>>")
+    print(" 5 - default\n\n")
     command = input(">> ")
     while command not in ('1', '2', '3', '4', '5'):
         print("\nUneli ste pogresnu komandu.\n")

@@ -24,7 +24,6 @@ def loadNajizdavanije():
         for r in lista:
             najizdavanija = str2najizdavanije(r)
             najizdavanije.append(najizdavanija)
-        print(lista)
             
             
 def str2najizdavanije(line):
