@@ -8,7 +8,9 @@ Created on Sun Jan  3 19:02:53 2021
 import Knjige
 import Clanovi
 import Bibliotekari
+import Izdavanje
 import datetime as dt
+import matplotlib.pyplot as plt
 
 JE_BIBLIOTEKAR = False
 USERNAME = ""
@@ -48,7 +50,9 @@ def main():
             elif komanda == '10':
                 vracanje()
             elif komanda == '11':
-                pass
+                izdateKnjige()
+            elif komanda == '12':
+                grafikoni()
                 
     else:
         while komanda != 'X':
@@ -68,7 +72,7 @@ def main():
 def menu():
     printMenu()
     command = input(">> ")
-    while command.upper() not in ('1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', 'X'):
+    while command.upper() not in ('1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', 'X'):
         print("\nUneli ste pogresnu komandu.\n")
         printMenu()
         command = input(">> ")
@@ -97,7 +101,8 @@ def printMenu():
     print(" 8  - dodavanje clana")
     print(" 9  - izdavanje knjige")
     print(" 10 - vracanje knjige")
-    print(" 11 - grafikoni")
+    print(" 11 - izdate knjige")
+    print(" 12 - grafikoni")
     print(" x  - izlaz iz programa\n")
     
 def printMenuClan():
@@ -122,9 +127,11 @@ def login():
     return 0
 
 def stampajKnjige():
+    Knjige.sortirajKnjige('naslov')
     Knjige.stampajKnjige(Knjige.knjige)
     
 def stampajClanove():
+    Clanovi.sortirajClanove('prezime')
     Clanovi.formatHeader()
     Clanovi.stampajClanove(Clanovi.clanovi)
 
@@ -187,25 +194,36 @@ def izdavanje():
         print("Knjiga nije pronadjena")
         return
     else:
-        print("{0:<5}{1:40}{2:20}{3:20}{4:8}{5:4}".format('id', 'naslov', 'autor', 'izdavac', 'godina', 'broj knjiga'))
+        #print("{0:<5}{1:40}{2:20}{3:20}{4:8}{5:4}".format('id', 'naslov', 'autor', 'izdavac', 'godina', 'broj knjiga'))
+        Knjige.formatHeader()
         Knjige.stampajKnjigu(knjiga)
         if int(knjiga['brKnjiga']) >=1:
             if input("Potvrdite iznajmljivanje knjige (da/ne) >>") == "ne":
                 print("Knjiga nije iznajmljenja")
                 return 0
-            izdavanje += knjiga['redniBroj'] + "|"
+            izdavanje += knjiga['redniBroj'] + "|" + knjiga['naslov'] + "|" + knjiga['autor'] + "|"
+            if Izdavanje.pronadjiNajizdavanija(knjiga['naslov'], knjiga['autor']) == 0:
+                najIzdavanije = knjiga['naslov'] + "|" + knjiga['autor'] + "|" + "1"
+                fajl = open("najizdavanije.txt", 'a')
+                fajl.write(najIzdavanije + '\n')
+                fajl.close()
+            else:
+                Izdavanje.izmeniNajizdavanija(knjiga['naslov'], knjiga['autor'])
+                Izdavanje.save2fileNajizdavanija()
             datum = dt.date.today()
-            izdavanje += str(datum) + "|"
+            izdavanje += str(datum.strftime("%d.%m.%Y.")) + "|"
             datum += dt.timedelta(days = 30)
-            izdavanje += str(datum)
+            izdavanje += str(datum.strftime("%d.%m.%Y."))
             fajl = open("izdate.txt", 'a')
             fajl.write(izdavanje + '\n')
             fajl.close()
+            Izdavanje.izdate.clear()
+            Izdavanje.loadIzdate()
             Knjige.izmeniBrojKnjiga(knjiga['redniBroj'], -1)
             Knjige.save2file()
             
         else:
-            print("Trenutno nema slobodnih primeraka te knjige u biblioteci")
+            print("\nTrenutno nema slobodnih primeraka te knjige u biblioteci")
 
 def vracanje():
     print("[Vracanje knjige] \n")
@@ -215,10 +233,35 @@ def vracanje():
         if not Clanovi.clanPostoji(USERNAME):
             print("Clan ne postoji")
             return
-    fajl = open("izdate.txt", 'r')
-
+    naslov = input("Unesite naslov knjige >> ")
+    knjiga = Knjige.pronadjiKnjigu(naslov)
+    if(knjiga == 0):
+        print("Knjiga nije pronadjena")
+        return
+    else:
+        for i in range(len(Izdavanje.izdate)):
+            if Izdavanje.izdate[i]['korIme'] == USERNAME and Izdavanje.izdate[i]['naslov'] == naslov:
+                del Izdavanje.izdate[i]
+                break
+        print("Knjiga je vracena")
+        
 def grafikoni():
-    pass
+    print("[Najprodavanije knjige] \n")
+    x_podaci = []
+    y_podaci = []
+    Izdavanje.najizdavanije.clear()
+    Izdavanje.loadNajizdavanije()
+    Izdavanje.najizdavanije = Izdavanje.sortirajNajizdavanije('brIzdavanja')
+    Izdavanje.save2fileNajizdavanija()
+    for i in Izdavanje.najizdavanije[:5]:
+        y_podaci.append(int(i['brIzdavanja']))
+        x_podaci.append(i['naslov'] + '\n' + i['autor'])
+    plt.bar(x_podaci, y_podaci)
+    plt.xlabel('Knjige')
+    plt.xticks(rotation = 90)
+    plt.ylabel('Broj izdavanja')
+    plt.show()
+    
 
 def dodavanjeClana():
     ime = input("Unesite ime >>")
@@ -233,6 +276,9 @@ def dodavanjeClana():
     Clanovi.stampajClana(clan)
     Clanovi.clanovi = Clanovi.dodajClana(Clanovi.clanovi, clan)
     Clanovi.save2file()
+
+def izdateKnjige():
+    Izdavanje.stampajIzdate(Izdavanje.izdate)
 
 def funkcija():
     printMenu()
