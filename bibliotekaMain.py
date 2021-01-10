@@ -242,8 +242,12 @@ def vracanje():
         for i in range(len(Izdavanje.izdate)):
             if Izdavanje.izdate[i]['korIme'] == USERNAME and Izdavanje.izdate[i]['naslov'] == naslov:
                 del Izdavanje.izdate[i]
-                break
-        print("Knjiga je vracena")
+                Izdavanje.save2file()
+                Izdavanje.loadIzdate()
+                print("Knjiga je vracena")
+                return
+        print("Korisnik nije iznajmio tu knjigu")
+        
         
 def grafikoni():
     print("[Najprodavanije knjige] \n")
