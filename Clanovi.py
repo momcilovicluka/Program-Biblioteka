@@ -37,14 +37,14 @@ def izmeniClana(korIme):
 
 def clanPostojiImePrezime(ime, prezime):
     for c in clanovi:
-        if c['ime'] == ime and c['prezime'] == prezime:
+        if c['ime'].lower() == ime.lower() and c['prezime'].lower() == prezime.lower():
             return True
     return False
 
 def pronadjiClana(ime, prezime):
     rez = []
     for c in clanovi:
-        if c['ime'] == ime and c['prezime'] == prezime:
+        if c['ime'].lower() == ime.lower() and c['prezime'].lower() == prezime.lower():
             rez.append(c)
     return rez
 

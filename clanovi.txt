@@ -2,3 +2,4 @@ Aleksa|Peric|aperic|sifra000
 Marko|Markovic|mmarkovic|password
 Nikola|Markovic|nikolajekul|glupasifra
 Petar|Petrovic|ppetrovic|sifra567
+Clan|Clan|clan|clan

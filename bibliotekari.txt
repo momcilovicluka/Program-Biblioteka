@@ -1,3 +1,4 @@
 bibliotekarmarko|password1234
 majaperic|jakasifra555
 luka|luka
+bibliotekar|bibliotekar
